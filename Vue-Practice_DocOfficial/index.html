@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<style>
+    #myHeader {
+        background-color: lightblue;
+        color: black;
+        padding: 40px;
+        text-align: center;
+    }
+    #list-3 {
+        background-color: red;
+        color: black;
+        padding: 40px;
+        text-align: center;
+    }
+</style>
+<body>
+<div id="app">
+    <h2>Interpolación Variables</h2>
+    <span>Message: {{ msg }}</span><br/>
+    <span v-once>Esto nunca cambiara: {{ msg }}</span>
+    <br/><br/>
+
+    <h2>Interpolación HTML</h2>
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <br/><br/>
+
+    <h2>Interpolación Atributos</h2>
+    <div v-bind:id="dynamicId">
+        <span>#dynamicId=myHeader: {{ dynamicId }}</span>
+    </div>
+    <br/><br/>
+
+    <h2>Interpolación Atributos Booleanos</h2>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+    <button v-bind:disabled="!isButtonDisabled">Button</button>
+    <br/><br/>
+
+    <h2>Usando Expresiones JavaScript</h2><br/>
+    <h4>Variable id:</h4> {{ number + 1 }}<br/>
+    <h4>Variable ok en  condicion:</h4> {{ ok ? 'YES' : 'NO' }}<br/>
+    <h4>Mensaje en reversa:</h4> {{ msg.split('').reverse().join('') }}<br/>
+    <div v-bind:id="'list-' + id">This is the id=#list-3</div><br/><br/>
+
+    <h2>Directivas</h2>
+    <p v-if="ok">Now you see me IF ok</p>
+    <p v-if="!ok">Now you see me IF !ok</p>
+    <br/><br/>
+
+    <h2>Argumentos</h2>
+    <a v-bind:href="url" target="_blank"> Vue Guide </a><br/><br/><br/>
+
+    <h2>Form: onsubmit = myFunction()</h2>
+    <p>When you submit the form, a function is triggered which alerts some text.</p>
+    <form onsubmit="myFunction1()">
+        Enter name: <input type="text" name="fname">
+        <input type="submit" value="Submit">
+    </form><br/><br/>
+
+    <h2>Modificadores</h2>
+    <form v-on:submit.prevent="myFunction1()">
+        Enter name: <input type="text" name="fname">
+        <button type="submit">Enviar</button>
+    </form>
+    <script>
+        function myFunction1() {
+            alert("The form was submitted");
+        }
+    </script>
+    <br/><br/>
+
+    <span v-once>Esto nunca cambiara: {{ dynamicId }}</span>
+</div>
+
+
+<script>
+const app = new Vue({
+    el: '#app',
+    data: {
+        msg: 'This is my message',
+        dynamicId: 'myHeader',
+        rawHtml: 'This should be bign in the html span or mustaches',
+        isButtonDisabled: true,
+        number: 1,
+        ok: true,
+        id: 3,
+        url: 'https://es.vuejs.org/v2/guide/'
+    }
+})
+</script>
+</body>
+</html>

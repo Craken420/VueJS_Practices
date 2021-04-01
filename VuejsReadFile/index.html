@@ -1,0 +1,87 @@
+<link href="https://unpkg.com/vuetify@0.17.4/dist/vuetify.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+<div id="app">
+  <v-app id="inspire">
+    <div class="text-xs-center">
+
+      <input ref="fileInputImport" type="file" name="fileInputImport" @change="selectFile">
+
+      <v-btn color="primary" @click.stop="openFileExplorer()">Choose file</v-btn>
+
+
+      <v-dialog v-model="dialogImport" fullscreen transition="dialog-bottom-transition" :overlay="false" scrollable>
+        <v-container class="ma-0 pa-0 white" style="max-width:100%">
+          <v-layout row wrap justify-left>
+
+            <v-card style="width:100%;">
+              <v-toolbar class="amber lighten-1 elevation-0">
+                <v-toolbar-title>Imported data</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <div>
+                  <v-flex xs12>
+                    <v-container fluid>
+                      <v-layout row align-center justify-center>
+
+                        <v-flex>
+                          <v-tooltip bottom close-delay="0">
+                            <v-btn icon slot="activator" @click.native="dialogImport = false">
+                              <v-icon>close</v-icon>
+                            </v-btn>
+                            <span>Close</span>
+                          </v-tooltip>
+                        </v-flex>
+
+                      </v-layout>
+                    </v-container>
+                  </v-flex>
+                </div>
+              </v-toolbar>
+              <div>{{ importedData }}</div>
+            </v-card>
+          </v-layout>
+        </v-container>
+      </v-dialog>
+
+    </div>
+  </v-app>
+</div>
+<script>
+new Vue({
+  el: "#app",
+  data: () => ({
+    importedData: null,
+    dialogImport: false
+  }),
+  watch: {
+    importedData: {
+      handler() {
+        this.checkData();
+      },
+      deep: true
+    }
+  },
+  methods: {
+    openFileExplorer() {
+      this.$refs.fileInputImport.value = "";
+      this.$refs.fileInputImport.click();
+    },
+    selectFile(e) {
+      const self = this;
+      const file = e.target.files[0];
+      let reader = new FileReader();
+      reader.onload = e => {
+        self.importedData = reader.result;
+        self.checkedData = true;
+      };
+      reader.readAsText(file);
+    },
+    checkData() {
+      // check the file
+      this.dialogImport = true;
+    }
+  }
+});
+</script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vuetify@0.17.4/dist/vuetify.min.js"></script>

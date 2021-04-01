@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="main">
+    </div>
+    <br>
+<script>
+Vue.component('service-add', {
+    template: `
+        <div>
+            <input type="text" v-model="nameService" />
+            <input type="text" v-model="priceService" />
+            <input type="text" v-model="activeService" />
+            <button @click="emitNewService">Añadir</button>
+        </div> 
+    `,
+    data: function () {
+        return {
+            nameService: null,
+            priceService: 0,
+            activeService: false
+        }
+    },
+    methods: {
+        emitNewService: function () {
+            if (this.nameService && this.priceService) {
+                this.$emit('new', { name: this.nameService,
+                    price: this.priceService,
+                    active: this.activeService
+                });
+                this.nameService = null;
+                this.priceService = 0;
+                this.activeService = false;
+            }
+        },
+       
+    },
+});
+Vue.component('service-list', {
+    props: ['services'],
+    template: `
+        <ol>
+            <service-item v-for="item in services" :service="item" :key="item.id"></service-item>
+        </ol>
+    `
+});
+Vue.component('service-item', {
+    props: ['service'],
+    template: `<li>
+        {{ service.name }} - {{ service.price }} - {{ service.active }}
+        <button @click="toggleActive(service)">Cambiar Actividad</button>
+    </li>`,
+    methods: {
+        toggleActive: function(service){
+            service.active =!service.active;
+        }
+    }
+});
+Vue.component('service-header', {
+    template: '<h1>Services</h1>'
+});
+const app = new Vue({
+    el: '#main',
+    template: `
+        <div>
+            <service-header></service-header>
+            <service-list v-bind:services="services"></service-list>
+            <service-add @new="addNewService"></service-add>
+            <button @click="getTotal()">Total</button>
+            <h4>Total prices actived: {{total}}</h4>
+        </div>
+    `,
+    data:{
+        total: 0,
+        services:[
+            {
+                name:'Desarrolador web',
+                price:300,
+                active:true
+            },{
+                name:'Diseñador',
+                price:400,
+                active:false
+            },{
+                name:'Integrador',
+                price:500,
+                active:false
+            },{
+                name:'entrenador',
+                price:600,
+                active:false
+            }
+        ]
+    },
+    methods: {
+        addNewService: function (service) {
+            this.services.push(service);
+        },
+        getTotal: function(){
+            var result = 0;
+            this.services.forEach(function(s){
+                if (s.active){
+                    result+=s.price;
+                }
+            });
+            this.total = result;
+         }
+    }
+});
+</script>
+</body>
+</html>
