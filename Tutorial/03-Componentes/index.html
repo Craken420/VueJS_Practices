@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="intro">
+    </div>
+<script>
+    Vue.component('componente-ola', {
+        template:'<div><h1>Bienvenido al componente-ola</h1><div>',
+    });
+    
+    var vm = new Vue({
+        el:'#intro',
+        template: `<componente-ola></componente-ola>`
+    });
+</script>
+</body>
+</html>

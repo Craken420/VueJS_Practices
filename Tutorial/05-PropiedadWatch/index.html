@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h4>Kilometros: {{kilometros}}</h4><input type="text" v-model="kilometros">
+        <h4>Metros: {{metros}}</h4><input type="text" v-model="metros">
+    </div>
+    <script>
+    var vm = new Vue({
+        el:"#intro",
+        data:{
+            kilometros:0,
+            metros:0
+        },
+        watch:{
+            kilometros: function(valor) {
+                this.metros = valor * 1000;
+                this.kilometros = valor;
+            }
+        }
+    });
+    </script>
+</body>
+</html>

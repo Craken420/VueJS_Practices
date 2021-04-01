@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h4>Name: {{name}}</h4>
+        <h4>App: {{app}}</h4>
+        <h4>htmlcontent: {{htmlcontent}}</h4>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#intro",
+            data:{
+                name:'Angel',
+                app:'Peña',
+                htmlcontent:'<div> <h1>Hola como estas</h1></div>'
+            }
+        });
+    </script>
+</body>
+</html>

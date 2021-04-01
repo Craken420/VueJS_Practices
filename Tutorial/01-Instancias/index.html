@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+<div id="intro">
+  <h1>Vue id=intro</h1>
+  <h4>Name: {{nom}}</h4>
+  <h4>App: {{app}}</h4>
+  <h4>Competo: {{misDatos()}}</h4>
+  <button @click="changeObj()">changeObj</button>
+</div>
+<script>
+var vm = new Vue({
+  el:'#intro',
+  data: {
+      nom:"Angel",
+      app:"Peña"
+  },
+  methods:{
+    misDatos: function(){
+      return "Mi nombre es "+ this.nom + " y mi apellido " + this.app;
+    },
+    changeObj: function () {
+      this.nom = 'Lolo'
+    }
+  }
+});
+</script>
+
+<br/><br/>
+
+<div id="example">
+  <h1>Vue id=example</h1>
+  <h4>A: {{a}}</h4>
+</div>
+<script>
+var dataG = { a: 1 }
+
+var vm = new Vue({
+  el: '#example',
+  data: dataG
+})
+
+console.log('vm.$data === data: ', vm.$data === dataG ) // => true
+
+console.log('vm.$el === document.getElementById(\'example\'):',
+  vm.$el === document.getElementById('example') ) // => true
+</script>
+</body>
+</html>

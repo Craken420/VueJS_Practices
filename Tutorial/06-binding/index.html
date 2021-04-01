@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+</head>
+<body>
+    <div id="intro">
+        <h4>Haserror: {{haserror}}</h4><button @click="cambiarActiveRojo">CambiarError</button>
+        <h4>IsActive: {{isActive}}</h4><button @click="cambiarActive">CambiarActive</button>
+    </div>
+    <script>
+    var vm = new Vue ({
+        el:'#intro',
+        data:{
+            isActive:true,
+            haserror:false
+        },
+        methods:{
+            cambiarActive:function(){
+                return this.isActive=!this.isActive;
+            },
+            cambiarActiveRojo:function(){
+                return this.haserror=!this.haserror;
+            }
+        }
+    });
+    </script>
+</body>
+</html>
